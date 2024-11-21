@@ -1,24 +1,33 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+USER_EMAIL = os.environ.get('USER_EMAIL')
+USER_PASSWORD = os.environ.get('USER_PASSWORD')
 
 SECRET_KEY = 'django-insecure-knz_#&_04fnkr@c3(=c7)c^_bsz6584@gk3mxr0l#z@nk%5q2o'
 DEBUG = True
 ALLOWED_HOSTS = []
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = USER_EMAIL
+EMAIL_HOST_PASSWORD = USER_PASSWORD
+
 # Celery configuration
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
 
 CELERY_RESULT_BACKEND = 'django-db'
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
 
 # Application definition
 
@@ -29,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bulk_email',
+    
+    'bulk_email.apps.BulkEmailConfig',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [

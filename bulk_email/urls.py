@@ -1,6 +1,6 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('upload/', views.upload_csv_and_schedule, name='upload_csv_and_schedule'),
 ]

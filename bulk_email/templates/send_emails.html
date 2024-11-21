@@ -1,5 +1,27 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Send Emails</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV</title>
+</head>
+<body>
+    <h1>Upload CSV to Schedule Emails</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Upload CSV:</label>
+        <input type="file" name="file" id="file" required><br><br>
+
+        <label for="subject">Email Subject:</label>
+        <input type="text" name="subject" id="subject" placeholder="Enter Subject" required><br><br>
+
+        <label for="message">Email Message:</label>
+        <textarea name="message" id="message" placeholder="Enter Message" required></textarea><br><br>
+
+        <label for="send_at">Schedule Time (Optional):</label>
+        <input type="datetime-local" name="send_at" id="send_at"><br><br>
+
+        <button type="submit">Send Emails</button>
+    </form>
+</body>
+</html>
